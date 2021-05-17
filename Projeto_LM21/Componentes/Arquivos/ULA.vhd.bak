@@ -1,0 +1,159 @@
+-- unudade ligica aritimetica
+--sei nem pronde vai
+
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+USE ieee.std_logic_unsigned.ALL;
+
+ENTITY ULA IS
+    PORT (
+        clock : IN std_logic;
+        ula : IN std_logic_vector(3 DOWNTO 0);
+        in_port_A : IN std_logic_vector(7 DOWNTO 0);
+        in_port_B : IN std_logic_vector(7 DOWNTO 0);
+        out_ula_result : OUT std_logic_vector(7 DOWNTO 0);
+        zero : OUT std_logic;
+        overflow : OUT std_logic
+    );
+END ULA;
+ARCHITECTURE behavior OF ula IS
+    COMPONENT temp_zero IS
+        PORT (
+            in_port : IN std_logic;
+            out_port : OUT std_logic
+        );
+    END COMPONENT;
+    COMPONENT multi IS
+        PORT (
+            in_port_A : IN std_logic_vector(7 DOWNTO 0);
+            in_port_B : IN std_logic_vector(7 DOWNTO 0);
+            out_port : OUT std_logic_vector(15 DOWNTO 0)
+        );
+    END COMPONENT;
+
+    COMPONENT adder_8_bits IS
+        PORT (
+            A : IN std_logic_vector(7 DOWNTO 0);
+            B : IN std_logic_vector(7 DOWNTO 0);
+            sinal : IN std_logic;
+            result : OUT std_logic_vector(7 DOWNTO 0);
+            cout : OUT std_logic
+        );
+    END COMPONENT;
+
+    COMPONENT sub_8_bits IS
+        PORT (
+            A : IN std_logic_vector(7 DOWNTO 0);
+            B : IN std_logic_vector(7 DOWNTO 0);
+            result : OUT std_logic_vector(7 DOWNTO 0);
+            cout : OUT std_logic
+        );
+    END COMPONENT;
+
+    -- Para usar na instrução (1010) if para o beq e bne
+    SIGNAL in_temp_zero : std_logic;
+    SIGNAL out_temp_zero : std_logic;
+
+    -- Usado no resultado da multiplicação
+    SIGNAL out_multi : std_logic_vector(15 DOWNTO 0);
+
+    --Para ver se ocorreu overflow nas intruções add e addi
+    SIGNAL temp_in_A : std_logic_vector(8 DOWNTO 0);
+    SIGNAL temp_in_B : std_logic_vector(8 DOWNTO 0);
+    SIGNAL temp_result : std_logic_vector(8 DOWNTO 0);
+    --Usados nas operações de adição e subtração
+    SIGNAL result_adder : std_logic_vector(7 DOWNTO 0);
+    SIGNAL result_sub : std_logic_vector(7 DOWNTO 0);
+    SIGNAL temp_overflow_adder : std_logic;
+    SIGNAL temp_overflow_sub : std_logic;
+
+BEGIN
+    port_map_temp_zero : temp_zero PORT MAP(in_temp_zero, out_temp_zero);
+    port_map_multi : multi PORT MAP(in_port_A, in_port_B, out_multi);
+    port_map_adder : adder_8_bits PORT MAP(in_port_A, in_port_B, '0', result_adder, temp_overflow_adder);
+    port_map_sub : sub_8_bits PORT MAP(in_port_A, in_port_B, result_sub, temp_overflow_sub);
+    PROCESS (clock)
+    BEGIN
+        CASE ula IS
+            WHEN "0000" => --add
+                temp_in_A <= "0" & in_port_A;
+                temp_in_B <= "0" & in_port_B;
+                temp_result <= temp_in_A + temp_in_B;
+
+                IF temp_result(8) = '1' THEN
+                    overflow <= '1';
+                ELSE
+                    overflow <= '0';
+                END IF;
+                out_ula_result <= temp_result(7 DOWNTO 0);
+                out_ula_result <= result_adder;
+                overflow <= temp_overflow_adder;
+
+            WHEN "0001" => --addi
+                temp_in_A <= "0" & in_port_A;
+                temp_in_B <= "0" & in_port_B;
+                temp_result <= temp_in_A + temp_in_B;
+                out_ula_result <= result_adder;
+                overflow <= temp_overflow_adder;
+
+                IF temp_result(8) = '1' THEN
+                    overflow <= '1';
+                ELSE
+                    overflow <= '0';
+                END IF;
+                out_ula_result <= temp_result(7 DOWNTO 0);
+            WHEN "0010" => --sub
+                out_ula_result <= in_port_A - in_port_B;
+                out_ula_result <= result_sub;
+
+            WHEN "0011" => --subi
+                out_ula_result <= in_port_A - in_port_B;
+                out_ula_result <= result_sub;
+
+            WHEN "0100" => -- lw
+                out_ula_result <= in_port_A;
+
+            WHEN "0101" => -- sw
+                out_ula_result <= in_port_A;
+
+            WHEN "0110" => -- move
+                out_ula_result <= in_port_B;
+
+            WHEN "0111" => -- li
+                out_ula_result <= in_port_B;
+
+            WHEN "1000" => -- beq
+                IF out_temp_zero = '1' THEN
+                    zero <= '1';
+                ELSE
+                    zero <= '0';
+                END IF;
+                out_ula_result <= "00000000";
+
+            WHEN "1001" => -- bne
+                IF out_temp_zero = '0' THEN
+                    zero <= '1';
+                ELSE
+                    zero <= '0';
+                END IF;
+                out_ula_result <= "00000000";
+
+            WHEN "1010" => -- if beq e bne
+                IF in_port_A = in_port_B THEN
+                    in_temp_zero <= '1';
+                ELSE
+                    in_temp_zero <= '0';
+                END IF;
+                out_ula_result <= "00000000";
+
+            WHEN "1011" => -- mul
+                out_ula_result <= out_multi(7 DOWNTO 0);
+                IF out_multi(8) = '1' OR out_multi(9) = '1' OR out_multi(10) = '1' OR out_multi(11) = '1' OR out_multi(12) = '1' OR out_multi(13) = '1' OR out_multi(14) = '1' OR out_multi(15) = '1' THEN
+                    overflow <= '1';
+                ELSE
+                    overflow <= '0';
+                END IF;
+
+            WHEN OTHERS =>
+                out_ula_result <= "00000000";
+        END CASE;
