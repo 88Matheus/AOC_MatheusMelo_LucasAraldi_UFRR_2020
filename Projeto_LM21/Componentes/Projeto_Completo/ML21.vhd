@@ -148,13 +148,13 @@ END component;
 		
 --div instuct
 	 
-      signal flagout_3_2 : std_logic_vector (1 DOWNTO 0);
+         signal flagout_3_2 : std_logic_vector (1 DOWNTO 0);
 		
-	   signal flagout_7_4 : std_logic_vector (3 DOWNTO 0);
+	 signal flagout_7_4 : std_logic_vector (3 DOWNTO 0);
 				
-      signal flagout_3_0 : std_logic_vector (3 DOWNTO 0);
-		
-		signal flagout_1_0 : std_logic_vector (1 DOWNTO 0);
+         signal flagout_3_0 : std_logic_vector (3 DOWNTO 0);
+	 	
+	 signal flagout_1_0 : std_logic_vector (1 DOWNTO 0);
 		
 		
 --saida_multiplexadres----------------------------------------------------------
@@ -177,7 +177,7 @@ END component;
 	 
 --------ula------------------------------------------------	 
 
-	 SIGNAL out_ula_re : std_logic_vector (7 DOWNTO 0);
+    SIGNAL out_ula_re : std_logic_vector (7 DOWNTO 0);
     SIGNAL out_ula_zero : std_logic;
     SIGNAL out_overflow : std_logic;
 --RAM------------------------------------------
@@ -242,8 +242,8 @@ portmap_ext_2x8 : extensor_2x8 port map (flagout_1_0, out_extensor_2x8);
         saida_rom <=  out_rom;                   
         saida_opcode <= flagout_7_4;
         saida_rs <= flagout_3_2;
-		  saida_rt<= flagout_1_0;
-		  saida_reg_A <= out_reg_A;
+	saida_rt<= flagout_1_0;
+	saida_reg_A <= out_reg_A;
         saida_reg_B <= out_reg_B;
         saida_ula_result <= out_ula_re;
         saida_mram <= out_mem_ram;
