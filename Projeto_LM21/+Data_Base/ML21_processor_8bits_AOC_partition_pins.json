@@ -1,0 +1,269 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "saida_pc[0]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_pc[1]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_pc[2]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_pc[3]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_pc[4]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_pc[5]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_pc[6]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_pc[7]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_somador[0]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_somador[1]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_somador[2]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_somador[3]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_somador[4]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_somador[5]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_somador[6]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_somador[7]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_rom[0]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_rom[1]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_rom[2]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_rom[4]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_rom[5]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_rom[7]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_opcode[0]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_opcode[1]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_opcode[3]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_rs[0]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_rt[0]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_rt[1]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_reg_A[0]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_reg_A[1]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_reg_A[2]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_reg_A[3]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_reg_A[4]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_reg_A[5]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_reg_A[6]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_reg_A[7]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_reg_B[0]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_reg_B[1]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_reg_B[2]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_reg_B[3]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_reg_B[4]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_reg_B[5]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_reg_B[6]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_reg_B[7]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_ula_result[0]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_ula_result[1]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_ula_result[2]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_ula_result[3]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_ula_result[4]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_ula_result[5]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_ula_result[6]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_ula_result[7]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_2X1ramula[0]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_2X1ramula[1]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_2X1ramula[2]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_2X1ramula[3]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_2X1ramula[4]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_2X1ramula[5]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_2X1ramula[6]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_2X1ramula[7]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_endereco[0]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_endereco[1]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_endereco[2]",
+					"strict" : false
+				},
+				{
+					"name" : "saida_overflow",
+					"strict" : false
+				},
+				{
+					"name" : "clock",
+					"strict" : false
+				}
+			]
+		}
+	]
+}
