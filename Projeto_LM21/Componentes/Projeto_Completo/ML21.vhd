@@ -2,32 +2,32 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.all;
  
 ENTITY ML21_processor_8bits_AOC IS
-    PORT (
+    PORT(
         clock : IN std_logic;
         saida_pc : OUT std_logic_vector (7 DOWNTO 0);
-		  saida_somador : OUT std_logic_vector (7 DOWNTO 0);
+	saida_somador : OUT std_logic_vector (7 DOWNTO 0);
         saida_rom : OUT std_logic_vector (7 DOWNTO 0);
         saida_opcode : OUT std_logic_vector (3 DOWNTO 0);
         saida_rs : OUT std_logic_vector (1 DOWNTO 0);
         saida_rt : OUT std_logic_vector (1 DOWNTO 0);
-		  saida_reg_A : OUT std_logic_vector (7 DOWNTO 0);
+	saida_reg_A : OUT std_logic_vector (7 DOWNTO 0);
         saida_reg_B : OUT std_logic_vector (7 DOWNTO 0);
         saida_ula_result : OUT std_logic_vector(7 DOWNTO 0);
         saida_mram : OUT std_logic_vector(7 DOWNTO 0);
         saida_2X1ramula : OUT std_logic_vector(7 DOWNTO 0);
         saida_endereco : OUT std_logic_vector (3 DOWNTO 0);
-		  saida_overflow : OUT std_logic
+	saida_overflow : OUT std_logic
     
-	 );
+	);
 end ML21_processor_8bits_AOC;
 ---------------------------------------------------------
 ARCHITECTURE ciclos OF ML21_processor_8bits_AOC IS
 
 component pc IS
     PORT (
-			clock : IN std_logic;
-         in_port : IN std_logic_vector (7 DOWNTO 0);
-         out_port : OUT std_logic_vector (7 DOWNTO 0)
+	clock : IN std_logic;
+        in_port : IN std_logic_vector (7 DOWNTO 0);
+        out_port : OUT std_logic_vector (7 DOWNTO 0)
     );
 end component ;
 ---------------------------------------------------------
@@ -49,14 +49,16 @@ end component;
 -----banco_regs------------------------------------------------------
 component banco_regs IS 
 	PORT (
-    clock : IN std_logic;
-    reg_write : IN std_logic;
-    address_1,  address_2  : IN std_logic_vector(1 DOWNTO 0);
-    write_data : IN std_logic_vector (7 DOWNTO 0);
-    reg_out_A, reg_out_B : OUT std_logic_vector (7 DOWNTO 0)
-);
+    	clock : IN std_logic;
+   	reg_write : IN std_logic;
+    	address_1,  address_2  : IN std_logic_vector(1 DOWNTO 0);
+    	write_data : IN std_logic_vector (7 DOWNTO 0);
+    	reg_out_A, reg_out_B : OUT std_logic_vector (7 DOWNTO 0)
+);	
 END component;
+	
 --divisão de instrução------------------------------------------------------------
+	
 component div_intru is port(
     in_port : IN std_logic_vector(7 DOWNTO 0);
     out_op_code : OUT std_logic_vector(3 DOWNTO 0);
@@ -136,57 +138,57 @@ END component;
 -------------------------------------------------------------
 --SINAIS DE SAIDA---regs
 		
-		signal out_pc : std_logic_vector(7 downto 0);
+	signal out_pc : std_logic_vector(7 downto 0);
 		
-		signal out_somador : std_logic_vector(7 downto 0);
+	signal out_somador : std_logic_vector(7 downto 0);
 		
-		signal out_rom : std_logic_vector(7 downto 0);
+	signal out_rom : std_logic_vector(7 downto 0);
 		
-		signal out_reg_A : std_logic_vector (7 downto 0); 
+	signal out_reg_A : std_logic_vector (7 downto 0); 
 		
-		signal out_reg_B : std_logic_vector (7 downto 0);		
+	signal out_reg_B : std_logic_vector (7 downto 0);		
 		
 --div instuct
 	 
-         signal flagout_3_2 : std_logic_vector (1 DOWNTO 0);
+        signal flagout_3_2 : std_logic_vector (1 DOWNTO 0);
 		
-	 signal flagout_7_4 : std_logic_vector (3 DOWNTO 0);
+	signal flagout_7_4 : std_logic_vector (3 DOWNTO 0);
 				
-         signal flagout_3_0 : std_logic_vector (3 DOWNTO 0);
+        signal flagout_3_0 : std_logic_vector (3 DOWNTO 0);
 	 	
-	 signal flagout_1_0 : std_logic_vector (1 DOWNTO 0);
+	signal flagout_1_0 : std_logic_vector (1 DOWNTO 0);
 		
 		
 --saida_multiplexadres----------------------------------------------------------
 
-    SIGNAL out_2X1_rem_reg_ula : std_logic_vector (7 DOWNTO 0);
-	 SIGNAL out_2X1_ramula : std_logic_vector (7 DOWNTO 0);
-	 SIGNAL out2X1_add_pc_jump : std_logic_vector (7 DOWNTO 0);
-	 SIGNAL out_2X1_jump : std_logic_vector (7 DOWNTO 0);
+    	SIGNAL out_2X1_rem_reg_ula : std_logic_vector (7 DOWNTO 0);
+	SIGNAL out_2X1_ramula : std_logic_vector (7 DOWNTO 0);
+	SIGNAL out2X1_add_pc_jump : std_logic_vector (7 DOWNTO 0);
+	SIGNAL out_2X1_jump : std_logic_vector (7 DOWNTO 0);
 	
 	--control---------------------------
 	
-	 SIGNAL outc_jump : std_logic;
-    SIGNAL outc_branch : std_logic;
-    SIGNAL outc_mem_read : std_logic;
-    SIGNAL outc_mem_pro_reg : std_logic;
-    SIGNAL outc_mem_volta : std_logic;
-    SIGNAL outc_alu_src : std_logic;
-    SIGNAL outc_reg_write : std_logic;
-	 SIGNAL outc_alucontrole: std_logic_vector (3 DOWNTO 0);
+	SIGNAL outc_jump : std_logic;
+    	SIGNAL outc_branch : std_logic;
+    	SIGNAL outc_mem_read : std_logic;
+    	SIGNAL outc_mem_pro_reg : std_logic;
+    	SIGNAL outc_mem_volta : std_logic;
+    	SIGNAL outc_alu_src : std_logic;
+    	SIGNAL outc_reg_write : std_logic;
+	SIGNAL outc_alucontrole: std_logic_vector (3 DOWNTO 0);
 	 
 --------ula------------------------------------------------	 
 
-    SIGNAL out_ula_re : std_logic_vector (7 DOWNTO 0);
-    SIGNAL out_ula_zero : std_logic;
-    SIGNAL out_overflow : std_logic;
+	SIGNAL out_ula_re : std_logic_vector (7 DOWNTO 0);
+	SIGNAL out_ula_zero : std_logic;
+	SIGNAL out_overflow : std_logic;
 --RAM------------------------------------------
 	signal out_mem_ram : std_logic_vector (7 DOWNTO 0);
 
 ---extensores
 
- SIGNAL out_extensor_2x8 : std_logic_vector (7 DOWNTO 0);
- SIGNAL out_extensor_4x8 : std_logic_vector (7 DOWNTO 0);
+ 	SIGNAL out_extensor_2x8 : std_logic_vector (7 DOWNTO 0);
+ 	SIGNAL out_extensor_4x8 : std_logic_vector (7 DOWNTO 0);
  
  --portand
  SIGNAL out_port_and : std_logic;
@@ -238,7 +240,7 @@ portmap_ext_2x8 : extensor_2x8 port map (flagout_1_0, out_extensor_2x8);
 
 
   -- Resultados Saidas
-		  saida_pc <=  out_pc;
+	saida_pc <=  out_pc;
         saida_rom <=  out_rom;                   
         saida_opcode <= flagout_7_4;
         saida_rs <= flagout_3_2;
@@ -249,6 +251,7 @@ portmap_ext_2x8 : extensor_2x8 port map (flagout_1_0, out_extensor_2x8);
         saida_mram <= out_mem_ram;
         saida_2X1ramula <= out_2X1_ramula;
         saida_endereco <= flagout_3_0;
-		  saida_overflow <= out_overflow;
-		  saida_somador <= out_somador;
+	saida_overflow <= out_overflow;
+	saida_somador <= out_somador;
+
 end ciclos;
